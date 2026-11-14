@@ -1,0 +1,103 @@
+# ---------------------------------------------------------------------------
+# Runtime data: never commit models, audio, generated projects or logs.
+# ---------------------------------------------------------------------------
+runtime/
+models/
+data/
+logs/
+cache/
+vendor/
+bin/
+tmp_bp/
+*.log
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+/dist/
+
+# ---------------------------------------------------------------------------
+# Node / frontend build output
+# ---------------------------------------------------------------------------
+frontend/node_modules/
+frontend/.vite/
+*.tsbuildinfo
+
+# ---------------------------------------------------------------------------
+# Model weights and media (not redistributable / not needed in git)
+# ---------------------------------------------------------------------------
+*.th
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.bin
+*.h5
+*.tflite
+*.mlmodel
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+*.opus
+*.aac
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.msi
+
+# Release staging (weights, zips, manifests)
+release-assets/
+
+# ---------------------------------------------------------------------------
+# Secrets and local configuration
+# ---------------------------------------------------------------------------
+launch.local.ps1
+*.local.ps1
+.env
+.env.*
+*.cookie
+*cookies*.txt
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ---------------------------------------------------------------------------
+# OS / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# ---------------------------------------------------------------------------
+# Optional: redistributing weights
+# ---------------------------------------------------------------------------
+# Weights are ignored by default. If you intentionally publish them through
+# Git LFS, run `git lfs track ...` first and then add narrow exceptions here:
+#
+# !weights/
+# !weights/**

@@ -1,0 +1,926 @@
+# Canonical instrument profiles.
+#
+# This catalog is intentionally data-driven: the pipeline, notation layer and
+# UI all read from it instead of hard-coding names or GM programs.  "range" is
+# the sounding MIDI range; "transpose" is the number of semitones added to
+# sounding pitch to obtain written pitch (Bb trumpet = +2).
+#
+# Ethnic instruments use the nearest General MIDI program for playback; they
+# are NOT claims that a model can identify that instrument.  For solo input the
+# profile supplies range/polyphony/clef; for full mixes the user can reassign a
+# detected "Other" track to one of these profiles.
+
+instruments:
+  # ----- core six ---------------------------------------------------------
+  - id: vocals
+    name_en: Voice
+    name_zh: 人声
+    aliases: [vocal, voice, vocals, 人声, 歌声]
+    family: voice
+    gm_program: 53
+    range: [36, 96]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [game, basic_pitch, pitch]
+
+  - id: piano
+    name_en: Piano
+    name_zh: 钢琴
+    aliases: [piano, acoustic_piano, grand_piano, 钢琴]
+    family: keyboard
+    gm_program: 0
+    range: [21, 108]
+    max_polyphony: 10
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [transkun, basic_pitch]
+
+  - id: guitar
+    name_en: Acoustic Guitar
+    name_zh: 吉他
+    aliases: [guitar, acoustic_guitar, clean_electric_guitar, distorted_electric_guitar, 吉他]
+    family: plucked
+    gm_program: 25
+    range: [40, 88]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, muscriptor]
+
+  - id: bass
+    name_en: Bass
+    name_zh: 贝斯
+    aliases: [bass, acoustic_bass, electric_bass, 贝斯, 低音吉他]
+    family: bass
+    gm_program: 33
+    range: [28, 60]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: drums
+    name_en: Drum Kit
+    name_zh: 鼓
+    aliases: [drums, drum, kit, drum_kit, 鼓, 架子鼓]
+    family: percussion
+    gm_program: 0
+    range: [35, 81]
+    max_polyphony: 4
+    monophonic: false
+    clef: percussion
+    transpose: 0
+    notation: percussion
+    models: [adtof, onset]
+
+  - id: other
+    name_en: Other
+    name_zh: 其他
+    aliases: [other, instrumental, accompaniment, 其他, 伴奏]
+    family: other
+    gm_program: 48
+    range: [24, 108]
+    max_polyphony: 8
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  # ----- Western / MuScriptor named classes ------------------------------
+  - id: electric_piano
+    name_en: Electric Piano
+    name_zh: 电钢琴
+    aliases: [electric_piano, 电钢琴]
+    family: keyboard
+    gm_program: 4
+    range: [21, 108]
+    max_polyphony: 10
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: chromatic_percussion
+    name_en: Chromatic Percussion
+    name_zh: 键盘打击乐
+    aliases: [chromatic_percussion, 键盘打击乐]
+    family: percussion
+    gm_program: 8
+    range: [48, 96]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: organ
+    name_en: Organ
+    name_zh: 风琴
+    aliases: [organ, accordion, harmonica, 风琴, 手风琴, 口琴]
+    family: keyboard
+    gm_program: 19
+    range: [36, 96]
+    max_polyphony: 8
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: clean_electric_guitar
+    name_en: Clean Guitar
+    name_zh: 清音电吉他
+    aliases: [clean_electric_guitar, clean_guitar, 清音吉他]
+    family: plucked
+    gm_program: 27
+    range: [40, 88]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: distorted_electric_guitar
+    name_en: Distorted Guitar
+    name_zh: 失真吉他
+    aliases: [distorted_electric_guitar, distorted_guitar, 失真吉他]
+    family: plucked
+    gm_program: 29
+    range: [40, 88]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: acoustic_bass
+    name_en: Acoustic Bass
+    name_zh: 原声贝斯
+    aliases: [acoustic_bass, 原声贝斯]
+    family: bass
+    gm_program: 32
+    range: [28, 60]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: electric_bass
+    name_en: Electric Bass
+    name_zh: 电贝斯
+    aliases: [electric_bass, 电贝斯]
+    family: bass
+    gm_program: 33
+    range: [28, 60]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: violin
+    name_en: Violin
+    name_zh: 小提琴
+    aliases: [violin, 小提琴]
+    family: strings
+    gm_program: 40
+    range: [55, 103]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: viola
+    name_en: Viola
+    name_zh: 中提琴
+    aliases: [viola, 中提琴]
+    family: strings
+    gm_program: 41
+    range: [48, 96]
+    max_polyphony: 1
+    monophonic: true
+    clef: alto
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: cello
+    name_en: Cello
+    name_zh: 大提琴
+    aliases: [cello, 大提琴]
+    family: strings
+    gm_program: 42
+    range: [36, 84]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: contrabass
+    name_en: Contrabass
+    name_zh: 低音提琴
+    aliases: [contrabass, double_bass, 低音提琴]
+    family: strings
+    gm_program: 43
+    range: [28, 67]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass8vb
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: orchestral_harp
+    name_en: Harp
+    name_zh: 竖琴
+    aliases: [orchestral_harp, harp, 竖琴]
+    family: strings
+    gm_program: 46
+    range: [24, 103]
+    max_polyphony: 8
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: timpani
+    name_en: Timpani
+    name_zh: 定音鼓
+    aliases: [timpani, 定音鼓]
+    family: percussion
+    gm_program: 47
+    range: [40, 67]
+    max_polyphony: 4
+    monophonic: false
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: string_ensemble
+    name_en: Strings
+    name_zh: 弦乐群
+    aliases: [string_ensemble, strings, 弦乐, 弦乐群]
+    family: strings
+    gm_program: 48
+    range: [24, 103]
+    max_polyphony: 10
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: synth_strings
+    name_en: Synth Strings
+    name_zh: 合成弦乐
+    aliases: [synth_strings, synth_string, 合成弦乐]
+    family: synth
+    gm_program: 50
+    range: [24, 108]
+    max_polyphony: 8
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: orchestra_hit
+    name_en: Orchestra Hit
+    name_zh: 管弦重击
+    aliases: [orchestra_hit, 管弦重击]
+    family: other
+    gm_program: 55
+    range: [24, 96]
+    max_polyphony: 8
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: trumpet
+    name_en: Trumpet
+    name_zh: 小号
+    aliases: [trumpet, 小号]
+    family: brass
+    gm_program: 56
+    range: [54, 82]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 2
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: trombone
+    name_en: Trombone
+    name_zh: 长号
+    aliases: [trombone, 长号]
+    family: brass
+    gm_program: 57
+    range: [40, 72]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: tuba
+    name_en: Tuba
+    name_zh: 大号
+    aliases: [tuba, 大号]
+    family: brass
+    gm_program: 58
+    range: [28, 58]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: french_horn
+    name_en: French Horn
+    name_zh: 圆号
+    aliases: [french_horn, horn, 圆号]
+    family: brass
+    gm_program: 60
+    range: [34, 77]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 7
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: brass_section
+    name_en: Brass
+    name_zh: 铜管群
+    aliases: [brass_section, brass, 铜管, 铜管群]
+    family: brass
+    gm_program: 61
+    range: [28, 82]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: soprano_sax
+    name_en: Soprano Sax
+    name_zh: 高音萨克斯
+    aliases: [soprano_sax, soprano_and_alto_sax, 高音萨克斯]
+    family: reed
+    gm_program: 64
+    range: [56, 87]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 2
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: alto_sax
+    name_en: Alto Sax
+    name_zh: 中音萨克斯
+    aliases: [alto_sax, 中音萨克斯]
+    family: reed
+    gm_program: 65
+    range: [49, 80]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 9
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: tenor_sax
+    name_en: Tenor Sax
+    name_zh: 次中音萨克斯
+    aliases: [tenor_sax, 次中音萨克斯]
+    family: reed
+    gm_program: 66
+    range: [44, 75]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 14
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: baritone_sax
+    name_en: Baritone Sax
+    name_zh: 上低音萨克斯
+    aliases: [baritone_sax, 上低音萨克斯]
+    family: reed
+    gm_program: 67
+    range: [36, 68]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 21
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: oboe
+    name_en: Oboe
+    name_zh: 双簧管
+    aliases: [oboe, 双簧管]
+    family: reed
+    gm_program: 68
+    range: [58, 91]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: english_horn
+    name_en: English Horn
+    name_zh: 英国管
+    aliases: [english_horn, 英国管]
+    family: reed
+    gm_program: 69
+    range: [52, 84]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 7
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: bassoon
+    name_en: Bassoon
+    name_zh: 巴松
+    aliases: [bassoon, 巴松, 大管]
+    family: reed
+    gm_program: 70
+    range: [34, 75]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: clarinet
+    name_en: Clarinet
+    name_zh: 单簧管
+    aliases: [clarinet, 单簧管, 黑管]
+    family: reed
+    gm_program: 71
+    range: [50, 91]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 2
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: flutes
+    name_en: Flute
+    name_zh: 长笛
+    aliases: [flute, flutes, 长笛, 笛子]
+    family: woodwind
+    gm_program: 73
+    range: [60, 96]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: synth_lead
+    name_en: Synth Lead
+    name_zh: 合成主音
+    aliases: [synth_lead, lead, 合成主音, 主音]
+    family: synth
+    gm_program: 80
+    range: [24, 108]
+    max_polyphony: 2
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: synth_pad
+    name_en: Synth Pad
+    name_zh: 合成铺底
+    aliases: [synth_pad, pad, 合成铺底, 铺底]
+    family: synth
+    gm_program: 88
+    range: [24, 108]
+    max_polyphony: 8
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [muscriptor, basic_pitch]
+
+  - id: synth_bass
+    name_en: Synth Bass
+    name_zh: 合成贝斯
+    aliases: [synth_bass, 合成贝斯]
+    family: synth
+    gm_program: 38
+    range: [24, 60]
+    max_polyphony: 1
+    monophonic: true
+    clef: bass
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  # ----- Chinese and other ethnic instruments ----------------------------
+  - id: erhu
+    name_en: Erhu
+    name_zh: 二胡
+    aliases: [erhu, 二胡, 南胡]
+    family: chinese
+    gm_program: 110
+    range: [55, 100]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: gaohu
+    name_en: Gaohu
+    name_zh: 高胡
+    aliases: [gaohu, 高胡]
+    family: chinese
+    gm_program: 110
+    range: [60, 103]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: zhonghu
+    name_en: Zhonghu
+    name_zh: 中胡
+    aliases: [zhonghu, 中胡]
+    family: chinese
+    gm_program: 110
+    range: [50, 95]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: jinghu
+    name_en: Jinghu
+    name_zh: 京胡
+    aliases: [jinghu, 京胡]
+    family: chinese
+    gm_program: 110
+    range: [60, 103]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: guzheng
+    name_en: Guzheng
+    name_zh: 古筝
+    aliases: [guzheng, zheng, 古筝, 筝]
+    family: chinese
+    gm_program: 107
+    range: [36, 96]
+    max_polyphony: 10
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, muscriptor]
+
+  - id: guqin
+    name_en: Guqin
+    name_zh: 古琴
+    aliases: [guqin, 古琴]
+    family: chinese
+    gm_program: 107
+    range: [36, 84]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: pipa
+    name_en: Pipa
+    name_zh: 琵琶
+    aliases: [pipa, 琵琶]
+    family: chinese
+    gm_program: 105
+    range: [45, 96]
+    max_polyphony: 8
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, muscriptor]
+
+  - id: yangqin
+    name_en: Yangqin
+    name_zh: 扬琴
+    aliases: [yangqin, 扬琴]
+    family: chinese
+    gm_program: 15
+    range: [36, 96]
+    max_polyphony: 8
+    monophonic: false
+    clef: grand
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, muscriptor]
+
+  - id: dizi
+    name_en: Dizi
+    name_zh: 笛子
+    aliases: [dizi, 笛子, 竹笛]
+    family: chinese
+    gm_program: 73
+    range: [60, 98]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: xiao
+    name_en: Xiao
+    name_zh: 箫
+    aliases: [xiao, 箫, 洞箫]
+    family: chinese
+    gm_program: 73
+    range: [55, 91]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: sheng
+    name_en: Sheng
+    name_zh: 笙
+    aliases: [sheng, 笙]
+    family: chinese
+    gm_program: 20
+    range: [48, 96]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: suona
+    name_en: Suona
+    name_zh: 唢呐
+    aliases: [suona, 唢呐, 喇叭]
+    family: chinese
+    gm_program: 111
+    range: [58, 100]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: hulusi
+    name_en: Hulusi
+    name_zh: 葫芦丝
+    aliases: [hulusi, 葫芦丝]
+    family: chinese
+    gm_program: 73
+    range: [55, 91]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: sitar
+    name_en: Sitar
+    name_zh: 西塔尔
+    aliases: [sitar, 西塔尔]
+    family: ethnic
+    gm_program: 104
+    range: [48, 96]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: koto
+    name_en: Koto
+    name_zh: 日本筝
+    aliases: [koto, 日本筝]
+    family: ethnic
+    gm_program: 107
+    range: [36, 96]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: shamisen
+    name_en: Shamisen
+    name_zh: 三味线
+    aliases: [shamisen, 三味线]
+    family: ethnic
+    gm_program: 106
+    range: [45, 91]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: tabla
+    name_en: Tabla
+    name_zh: 塔布拉
+    aliases: [tabla, 塔布拉]
+    family: percussion
+    gm_program: 0
+    range: [35, 81]
+    max_polyphony: 2
+    monophonic: false
+    clef: percussion
+    transpose: 0
+    notation: percussion
+    models: [onset, adtof]
+
+  - id: oud
+    name_en: Oud
+    name_zh: 乌德琴
+    aliases: [oud, 乌德琴]
+    family: ethnic
+    gm_program: 105
+    range: [40, 88]
+    max_polyphony: 6
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: ney
+    name_en: Ney
+    name_zh: 奈伊笛
+    aliases: [ney, 奈伊笛]
+    family: ethnic
+    gm_program: 73
+    range: [55, 91]
+    max_polyphony: 1
+    monophonic: true
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [pitch, basic_pitch]
+
+  - id: kalimba
+    name_en: Kalimba
+    name_zh: 卡林巴
+    aliases: [kalimba, 卡林巴, 拇指琴]
+    family: ethnic
+    gm_program: 108
+    range: [48, 96]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: steel_drum
+    name_en: Steel Drum
+    name_zh: 钢鼓
+    aliases: [steel_drum, steelpan, 钢鼓]
+    family: ethnic
+    gm_program: 114
+    range: [48, 96]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: banjo
+    name_en: Banjo
+    name_zh: 班卓琴
+    aliases: [banjo, 班卓琴]
+    family: plucked
+    gm_program: 105
+    range: [40, 88]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: mandolin
+    name_en: Mandolin
+    name_zh: 曼陀林
+    aliases: [mandolin, 曼陀林]
+    family: plucked
+    gm_program: 105
+    range: [55, 96]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  - id: ukulele
+    name_en: Ukulele
+    name_zh: 尤克里里
+    aliases: [ukulele, 尤克里里]
+    family: plucked
+    gm_program: 105
+    range: [48, 88]
+    max_polyphony: 4
+    monophonic: false
+    clef: treble8vb
+    transpose: 0
+    notation: staff
+    models: [basic_pitch, pitch]
+
+  # ----- electronic / effects -------------------------------------------
+  - id: electronic_drums
+    name_en: Electronic Drums
+    name_zh: 电子鼓
+    aliases: [electronic_drums, drum_machine, 808, 909, 电子鼓, 鼓机]
+    family: electronic
+    gm_program: 0
+    range: [35, 81]
+    max_polyphony: 4
+    monophonic: false
+    clef: percussion
+    transpose: 0
+    notation: percussion
+    models: [adtof, onset]
+
+  - id: fx
+    name_en: FX
+    name_zh: 音效
+    aliases: [fx, effect, 音效]
+    family: effect
+    gm_program: 0
+    range: [0, 127]
+    max_polyphony: 0
+    monophonic: false
+    clef: none
+    transpose: 0
+    notation: none
+    models: []

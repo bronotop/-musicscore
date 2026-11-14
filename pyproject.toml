@@ -1,0 +1,25 @@
+[project]
+name = "music2score"
+version = "0.1.0"
+description = "Local automatic multi-instrument transcription: audio to stems, MIDI and sheet music"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "PolyForm-Noncommercial-1.0.0"
+authors = [{ name = "music2score contributors" }]
+keywords = ["music", "transcription", "demucs", "midi", "musicxml", "source-separation"]
+classifiers = [
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+  "Topic :: Multimedia :: Sound/Audio :: MIDI",
+  "Operating System :: Microsoft :: Windows",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "Pillow>=10"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["backend/tests"]
+addopts = "-q"

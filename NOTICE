@@ -1,0 +1,58 @@
+music2score
+Copyright 2026 music2score contributors
+
+This software uses the following third-party models and tools. Model weights,
+when distributed with this repository or its releases, remain under their own
+licenses. **NC = Non-Commercial (non-commercial use only).**
+
+Models
+------
+1. Demucs (htdemucs_ft, htdemucs_6s)
+   Source: https://github.com/facebookresearch/demucs
+   License: code MIT; model weights are subject to the upstream Meta terms
+   (research use).
+
+2. Beat-This
+   Source: https://github.com/CPJKU/beat_this
+   License: MIT.
+
+3. GAME 1.0.3
+   Source: https://github.com/openvpi/GAME
+   License: MIT.
+
+4. faster-whisper / Whisper
+   Source: https://github.com/SYSTRAN/faster-whisper
+   License: MIT.
+
+5. Transkun 2.0
+   Source: https://github.com/Yujia-Yan/Transkun
+   License: MIT.
+
+6. ADTOF-pytorch
+   Source: https://github.com/xavriley/ADTOF-pytorch
+   License: code MIT; ADTOF model weights are CC BY-NC-SA 4.0.
+   **NC: non-commercial use only.**
+
+7. Basic Pitch 0.4
+   Source: https://github.com/spotify/basic-pitch
+   License: Apache-2.0.
+
+8. MuScriptor 0.4 medium
+   Source: https://huggingface.co/MuScriptor/muscriptor-medium
+   License: code MIT; model weights are CC BY-NC 4.0.
+   **NC: non-commercial use only.**
+
+9. torchcrepe / librosa pYIN
+   Source: https://github.com/maxrmorrison/torchcrepe
+   License: MIT / ISC.
+
+Non-commercial notice
+---------------------
+The project code is licensed under the PolyForm Noncommercial License 1.0.0.
+MuScriptor weights (CC BY-NC 4.0) and ADTOF weights (CC BY-NC-SA 4.0) are also
+non-commercial. You may not use this project, its code, or those weights for a
+commercial product or commercial service without separate permission.
+
+If you redistribute this project or its weights, you must keep this NOTICE,
+the model names, sources, licenses, and the NC statement intact. See
+LICENSE and THIRD_PARTY_NOTICES.md for details.
