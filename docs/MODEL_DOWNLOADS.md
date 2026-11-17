@@ -179,7 +179,7 @@ $env:LYRICS_DEVICE = "cpu"    # cuda requires cuBLAS
 Install from the upstream repository:
 
 ```powershell
-pip install "git+https://github.com/xavriley/ADTOF-pytorch.git@85c192e78f716ea0b111cc8a5ee4a8f6a3a4f8a9"
+pip install "https://github.com/xavriley/ADTOF-pytorch/archive/85c192e78f716ea0b111cc8a5ee4a8f6a3a4f8a9.zip"
 ```
 
 The package ships its 3.6 MB weights. If you already have a weight file:

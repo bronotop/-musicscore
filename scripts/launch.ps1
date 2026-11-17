@@ -59,14 +59,50 @@ if ($env:MUSIC2SCORE_PYTHON) {
 else {
     $Python = Join-Path $Root ".venv\Scripts\python.exe"
 }
+
+$UsingExternalPython = [bool]$env:MUSIC2SCORE_PYTHON
+$NeedsSetup = $false
+
 if (-not (Test-Path $Python)) {
-    if ($env:MUSIC2SCORE_PYTHON) {
+    if ($UsingExternalPython) {
         Fail "MUSIC2SCORE_PYTHON 指向的解释器不存在：$Python"
     }
+    $NeedsSetup = $true
+}
+elseif (-not $UsingExternalPython) {
+    $MarkerPath = Join-Path $Root ".venv\.music2score-deps.json"
+    $RequirementsPath = Join-Path $Root "requirements.txt"
+    if (-not (Test-Path $MarkerPath)) {
+        $NeedsSetup = $true
+    }
+    else {
+        try {
+            $marker = Get-Content $MarkerPath -Raw | ConvertFrom-Json
+            $requirementsHash = (Get-FileHash $RequirementsPath -Algorithm SHA256).Hash.ToLower()
+            if ($marker.requirements_sha256 -ne $requirementsHash -or $marker.basic_pitch -ne "0.4.0") {
+                $NeedsSetup = $true
+            }
+        }
+        catch {
+            $NeedsSetup = $true
+        }
+    }
 
+    if (-not $NeedsSetup) {
+        $SitePackages = Join-Path $Root ".venv\Lib\site-packages"
+        foreach ($package in @("torch", "basic_pitch", "librosa", "music21", "fastapi", "uvicorn")) {
+            if (-not (Test-Path (Join-Path $SitePackages $package))) {
+                $NeedsSetup = $true
+                break
+            }
+        }
+    }
+}
+
+if ($NeedsSetup) {
     Write-Host ""
-    Write-Info "首次运行：正在自动安装运行环境（约 5 GB，可能需要 10-30 分钟）。"
-    Write-Info "请保持这个窗口打开，不要关闭。安装完成后会自动启动。"
+    Write-Info "正在检查/安装运行环境（首次约 5 GB，可能需要 10-30 分钟）。"
+    Write-Info "已安装的依赖会跳过，不会重复下载。请保持窗口打开。"
     $Setup = Join-Path $ScriptDir "setup.ps1"
     if (-not (Test-Path $Setup)) {
         Fail "找不到安装脚本：$Setup"

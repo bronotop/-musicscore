@@ -36,6 +36,9 @@
 
 .PARAMETER Check
     只检查 Python 3.12 是否可找到，不安装任何东西。
+
+.PARAMETER ForceDeps
+    忽略“依赖已安装”标记，重新检查/安装依赖。
 #>
 [CmdletBinding()]
 param(
@@ -45,10 +48,19 @@ param(
     [switch]$SkipFrontend,
     [switch]$SkipModels,
     [string]$Python = "",
-    [switch]$Check
+    [switch]$Check,
+    [switch]$ForceDeps
 )
 
-$ErrorActionPreference = "Stop"
+# Native tools (pip/winget/npm) often write warnings to stderr. With
+# ErrorActionPreference=Stop, Windows PowerShell 5.1 can turn those warnings
+# into terminating NativeCommandError. Use Continue and check $LASTEXITCODE
+# explicitly for each external command.
+$ErrorActionPreference = "Continue"
+
+if ($Cuda -and $Cpu) {
+    throw "不能同时使用 -Cuda 和 -Cpu。"
+}
 
 function Write-Step([string]$Text) {
     Write-Host ""
@@ -125,6 +137,19 @@ if ($Check) {
 $Venv = Join-Path $Root ".venv"
 $VenvPython = Join-Path $Venv "Scripts\python.exe"
 
+function Test-Dependencies {
+    if (-not (Test-Path $VenvPython)) { return $false }
+    $previous = $ErrorActionPreference
+    $ErrorActionPreference = "SilentlyContinue"
+    try {
+        & $VenvPython -c "import torch, basic_pitch, audio_separator, librosa, music21, fastapi, uvicorn" 2>$null
+        return ($LASTEXITCODE -eq 0)
+    }
+    finally {
+        $ErrorActionPreference = $previous
+    }
+}
+
 if (-not (Test-Path $VenvPython)) {
     $PythonExe = Find-Python312 -Explicit $Python
     if (-not $PythonExe) {
@@ -166,9 +191,10 @@ Python 3.12 已通过 winget 安装，但当前窗口还找不到它。
     }
 }
 
-Write-Step "升级 pip"
-& $VenvPython -m pip install --upgrade pip wheel
-if ($LASTEXITCODE -ne 0) { throw "pip 升级失败。" }
+$RequirementsPath = Join-Path $Root "requirements.txt"
+$RequirementsHash = (Get-FileHash $RequirementsPath -Algorithm SHA256).Hash.ToLower()
+$MarkerPath = Join-Path $Venv ".music2score-deps.json"
+$DepsReady = $false
 
 if (-not $Cpu -and -not $Cuda) {
     $nvidiaSmi = Get-Command nvidia-smi -ErrorAction SilentlyContinue
@@ -178,27 +204,74 @@ if (-not $Cpu -and -not $Cuda) {
     }
 }
 
-if ($Cuda) {
-    Write-Step "安装 CUDA 版 PyTorch（$CudaIndexUrl）"
-    & $VenvPython -m pip install torch torchvision torchaudio --index-url $CudaIndexUrl
-    if ($LASTEXITCODE -ne 0) {
-        Write-Warning "CUDA 版 PyTorch 安装失败，回退到默认 PyPI 版本（CPU 或系统默认）。"
-        & $VenvPython -m pip install torch torchvision torchaudio
-        if ($LASTEXITCODE -ne 0) { throw "PyTorch 安装失败。" }
+if ((Test-Path $MarkerPath) -and -not $ForceDeps) {
+    try {
+        $marker = Get-Content $MarkerPath -Raw | ConvertFrom-Json
+        $sameRequirements = $marker.requirements_sha256 -eq $RequirementsHash
+        $samePitch = $marker.basic_pitch -eq "0.4.0"
+        $sameCuda = [bool]$marker.cuda -eq [bool]$Cuda
+        if ($sameRequirements -and $samePitch -and $sameCuda) {
+            Write-Step "检测到已安装依赖，验证关键模块"
+            if (Test-Dependencies) {
+                $DepsReady = $true
+            }
+            else {
+                Write-Warning "依赖验证失败，将重新检查/安装。"
+            }
+        }
+        else {
+            Write-Step "requirements.txt 或 CUDA 选项已变化，重新检查依赖"
+        }
+    }
+    catch {
+        Write-Warning "依赖标记损坏，将重新检查/安装。"
     }
 }
 
-Write-Step "安装 requirements.txt（约 5 GB，首次较慢）"
-& $VenvPython -m pip install -r (Join-Path $Root "requirements.txt")
-if ($LASTEXITCODE -ne 0) { throw "依赖安装失败。" }
+if ($DepsReady) {
+    Write-Step "依赖已安装且匹配 requirements.txt，跳过 pip 安装"
+}
+else {
+    Write-Step "升级 pip"
+    & $VenvPython -m pip install --upgrade pip wheel
+    if ($LASTEXITCODE -ne 0) { throw "pip 升级失败。" }
 
-Write-Step "安装 Basic Pitch（不安装 TensorFlow）"
-& $VenvPython -m pip install --no-deps "basic-pitch==0.4.0"
-if ($LASTEXITCODE -ne 0) { throw "Basic Pitch 安装失败。" }
+    if ($Cuda) {
+        Write-Step "安装 CUDA 版 PyTorch（$CudaIndexUrl）"
+        & $VenvPython -m pip install torch torchvision torchaudio --index-url $CudaIndexUrl
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning "CUDA 版 PyTorch 安装失败，回退到默认 PyPI 版本（CPU 或系统默认）。"
+            & $VenvPython -m pip install torch torchvision torchaudio
+            if ($LASTEXITCODE -ne 0) { throw "PyTorch 安装失败。" }
+        }
+    }
 
-Write-Step "检查关键依赖"
-& $VenvPython -c "import torch, basic_pitch, librosa, music21, fastapi; print('torch', torch.__version__, 'cuda', torch.cuda.is_available())"
-if ($LASTEXITCODE -ne 0) { throw "依赖导入失败，请查看上方 pip 输出。" }
+    Write-Step "检查/安装 requirements.txt（已安装的包会跳过）"
+    & $VenvPython -m pip install -r $RequirementsPath
+    if ($LASTEXITCODE -ne 0) { throw "依赖安装失败。" }
+
+    Write-Step "检查/安装 Basic Pitch（不安装 TensorFlow）"
+    & $VenvPython -m pip install --no-deps "basic-pitch==0.4.0"
+    if ($LASTEXITCODE -ne 0) { throw "Basic Pitch 安装失败。" }
+
+    Write-Step "验证关键依赖"
+    & $VenvPython -c "import torch, basic_pitch, audio_separator, librosa, music21, fastapi, uvicorn; print('torch', torch.__version__, 'cuda', torch.cuda.is_available())"
+    if ($LASTEXITCODE -ne 0) { throw "依赖导入失败，请查看上方 pip 输出。" }
+
+    $markerPayload = [ordered]@{
+        requirements_sha256 = $RequirementsHash
+        basic_pitch = "0.4.0"
+        cuda = [bool]$Cuda
+        python = "3.12"
+        created_at = (Get-Date).ToUniversalTime().ToString("o")
+    }
+    [System.IO.File]::WriteAllText(
+        $MarkerPath,
+        ($markerPayload | ConvertTo-Json),
+        (New-Object System.Text.UTF8Encoding($false))
+    )
+    Write-Step "依赖安装完成，已写入安装标记"
+}
 
 $DistIndex = Join-Path $Root "frontend\dist\index.html"
 if (-not $SkipFrontend) {

@@ -45,7 +45,7 @@ onnxruntime>=1.17
 # non-TensorFlow runtime dependencies:
 mir-eval>=0.6
 scikit-learn>=1.0
-resampy>=0.2.2,<0.4.3
+resampy>=0.4.3
 
 faster-whisper>=1.2,<2
 beat-this>=1.1
@@ -55,4 +55,4 @@ muscriptor>=0.4,<0.5
 
 # ADTOF drum transcription (code). Model weights are downloaded separately
 # and are CC BY-NC-SA 4.0; do not redistribute them.
-adtof-pytorch @ git+https://github.com/xavriley/ADTOF-pytorch.git@85c192e78f716ea0b111cc8a5ee4a8f6a3a4f8a9
+adtof-pytorch @ https://github.com/xavriley/ADTOF-pytorch/archive/85c192e78f716ea0b111cc8a5ee4a8f6a3a4f8a9.zip

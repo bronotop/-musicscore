@@ -50,11 +50,12 @@ music2score 是一个跑在本地的 Web 应用：导入一首歌，自动分离
 **Windows 10/11：** [下载 `music2score-windows-v0.1.0.zip`（含权重，约 1.59 GB）](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-windows-v0.1.0.zip)
 
 解压后双击 **`启动音乐扒谱.bat`**。模型权重已包含在压缩包的 `runtime/models/` 中；
-首次运行只会自动安装 Python 依赖（约 5 GB），不需要手动下载模型或使用命令行。
+首次运行只会自动安装缺失的 Python 依赖（已安装的会跳过），不需要手动下载模型或使用命令行。
+
+> PDF 导出需要额外安装 MuseScore 4；MusicXML 和 SVG 开箱即用。
 
 - Release 页面：[v0.1.0-weights](https://github.com/bronotop/-musicscore/releases/tag/v0.1.0-weights)
-- SHA256：`4d61644af75eb0d594a9cbf2125b28da1f2406d48d47ec2c2127eba2f6a1026d`
-- 校验文件：[manifest.json](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/manifest.json)
+- SHA256 与文件大小见 Release 页的 [manifest.json](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/manifest.json)。
 
 ## 模型与许可（必读）
 
