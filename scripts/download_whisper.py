@@ -57,6 +57,13 @@ def main() -> int:
     repo = args.repo or f"Systran/faster-whisper-{args.size}"
     destination.mkdir(parents=True, exist_ok=True)
 
+    if is_complete(destination):
+        print(f"Whisper model already present: {destination}")
+        for name in REQUIRED:
+            path = destination / name
+            print(f"  {name:18s} {path.stat().st_size:>12,d} bytes")
+        return 0
+
     try:
         from huggingface_hub import snapshot_download
     except Exception as exc:
