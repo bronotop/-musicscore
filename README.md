@@ -50,7 +50,7 @@ music2score 是一个跑在本地的 Web 应用：导入一首歌，自动分离
 Windows 10/11 需要下载 **两个压缩包**（在同一个 Release 页面）：
 
 1. **程序包**：`music2score-windows-v0.1.0.zip`
-2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.59 GB，含所有模型权重）
+2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.58 GB，含 Demucs / GAME / Whisper / MuScriptor 权重）
 
 安装步骤：
 
@@ -67,6 +67,7 @@ Windows 10/11 需要下载 **两个压缩包**（在同一个 Release 页面）�
 - Release 页面：[v0.1.0-weights](https://github.com/bronotop/-musicscore/releases/tag/v0.1.0-weights)
 - 两个包的 SHA256 与大小见 Release 页的 [manifest.json](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/manifest.json)。
 
+> ADTOF / Transkun / Basic Pitch 等权重随 pip 包安装，不在模型包内。
 > **模型包仅限非商业使用**（MuScriptor CC BY-NC 4.0、ADTOF CC BY-NC-SA 4.0）。
 > PDF 导出需要额外安装 MuseScore 4；MusicXML 和 SVG 开箱即用。
 

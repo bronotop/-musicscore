@@ -20,7 +20,7 @@ $MUSIC2SCORE_HOME/models/
 GitHub Release 提供两个压缩包：
 
 1. **程序包**：`music2score-windows-v0.1.0.zip`
-2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.59 GB）
+2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.58 GB，含 Demucs / GAME / Whisper / MuScriptor 权重）
 
 安装：
 
@@ -30,7 +30,7 @@ GitHub Release 提供两个压缩包：
 4. 双击 `music2score/启动音乐扒谱.bat`。
 
 最终路径应为 `music2score/runtime/models/muscriptor/...`。
-检测到 `runtime/models` 后，首次启动不会重复下载权重。
+检测到 `runtime/models` 后，首次启动不会重复下载权重。ADTOF / Transkun / Basic Pitch 等权重随 pip 包安装。
 
 ## 0.1 权重分发方式（发布者）
 
