@@ -1,0 +1,66 @@
+models:
+  htdemucs_ft:
+    kind: separation
+    architecture: demucs
+    license: "MIT code; Demucs weights are research-oriented"
+    stems: [vocals, drums, bass, other]
+    sample_rate: 44100
+    vram_gb: 6
+    notes: "Best turnkey 4-stem Demucs model; used by the fast preset."
+  htdemucs_6s:
+    kind: separation
+    architecture: demucs
+    license: "MIT code; Demucs weights are research-oriented"
+    stems: [vocals, drums, bass, guitar, piano, other]
+    sample_rate: 44100
+    vram_gb: 5
+    notes: "6-stem but piano bleed is significant; quality preset starting point."
+  bs_roformer_sw6:
+    kind: separation
+    architecture: bs_roformer
+    license: "Community weights; verify per checkpoint before redistribution"
+    stems: [vocals, drums, bass, guitar, piano, other]
+    sample_rate: 44100
+    vram_gb: 8
+    notes: "High-quality 6-stem target once the exact checkpoint is pinned."
+  transkun:
+    kind: transcription
+    architecture: piano
+    license: "MIT"
+    stems: [piano]
+    vram_gb: 2
+    notes: "Transkun V2, pip install transkun."
+  basic_pitch:
+    kind: transcription
+    architecture: multi
+    license: "Apache-2.0"
+    stems: [vocals, bass, guitar, other]
+    vram_gb: 2
+    notes: "Spotify Basic Pitch; TensorFlow runtime."
+  adtof:
+    kind: transcription
+    architecture: drums
+    license: "CC BY-NC-SA 4.0"
+    stems: [drums]
+    vram_gb: 2
+    notes: "Drum transcription; research license, personal use only."
+  game:
+    kind: transcription
+    architecture: vocals
+    license: "MIT"
+    stems: [vocals]
+    vram_gb: 2
+    notes: "OpenVPI GAME singing transcription."
+  muscriptor:
+    kind: transcription
+    architecture: general
+    license: "Code MIT; weights CC BY-NC 4.0"
+    stems: [guitar, piano, other]
+    vram_gb: 8
+    notes: "1.3B general transcription model; personal use only."
+  beat_this:
+    kind: rhythm
+    architecture: beat
+    license: "MIT"
+    vram_gb: 1
+    notes: "Beat/downbeat/tempo tracking."

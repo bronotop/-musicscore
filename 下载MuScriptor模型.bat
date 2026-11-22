@@ -1,6 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
+if not defined MUSIC2SCORE_HOME set "MUSIC2SCORE_HOME=%~dp0runtime"
 title music2score - MuScriptor models
 if not exist ".venv\Scripts\python.exe" (
     echo Please run the main launcher first to install the environment.

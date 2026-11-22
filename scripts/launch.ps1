@@ -90,7 +90,7 @@ elseif (-not $UsingExternalPython) {
 
     if (-not $NeedsSetup) {
         $SitePackages = Join-Path $Root ".venv\Lib\site-packages"
-        foreach ($package in @("torch", "basic_pitch", "librosa", "music21", "fastapi", "uvicorn")) {
+        foreach ($package in @("torch", "basic_pitch", "audio_separator", "librosa", "music21", "fastapi", "uvicorn")) {
             if (-not (Test-Path (Join-Path $SitePackages $package))) {
                 $NeedsSetup = $true
                 break
@@ -130,9 +130,13 @@ $env:PYTHONUTF8 = "1"
 $env:PYTHONIOENCODING = "utf-8"
 
 $ModelDir = Join-Path $env:MUSIC2SCORE_HOME "models"
-if (-not (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml")) -and -not (Test-Path (Join-Path $ModelDir "muscriptor"))) {
-    Write-Info "提示：未找到模型目录 $ModelDir"
-    Write-Info "请把模型包里的 models 文件夹拖到 runtime\ 下，或双击 下载核心模型.bat。"
+if (-not (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml"))) {
+    Write-Info "提示：未找到核心分轨模型 $ModelDir\htdemucs_ft.yaml"
+    Write-Info "请把模型包里的 models 文件夹拖到 $env:MUSIC2SCORE_HOME\ 下，或双击 下载核心模型.bat。"
+}
+elseif (-not (Test-Path (Join-Path $ModelDir "muscriptor"))) {
+    Write-Info "提示：未找到可选模型 MuScriptor（质量档的额外乐器）。"
+    Write-Info "需要时双击 下载MuScriptor模型.bat；快速档和基础分轨不受影响。"
 }
 
 # ---------------------------------------------------------------- frontend --

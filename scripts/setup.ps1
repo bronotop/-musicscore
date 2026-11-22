@@ -312,12 +312,16 @@ if (-not $SkipModels) {
     }
 
     $ModelDir = Join-Path $env:MUSIC2SCORE_HOME "models"
-    $hasBundledModels = (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml")) -or (Test-Path (Join-Path $ModelDir "muscriptor"))
-    if (-not $hasBundledModels) {
+    if (-not (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml"))) {
         Write-Host ""
-        Write-Host "提示：没有找到 runtime\models。" -ForegroundColor Yellow
-        Write-Host "如果你下载了模型包，请先把模型包解压出的 models 文件夹拖到 runtime\ 下；" -ForegroundColor Yellow
+        Write-Host "提示：没有找到核心分轨模型 htdemucs_ft.yaml。" -ForegroundColor Yellow
+        Write-Host "如果你下载了模型包，请先把模型包解压出的 models 文件夹拖到 $env:MUSIC2SCORE_HOME\ 下；" -ForegroundColor Yellow
         Write-Host "否则安装器会尝试自动下载 Demucs / GAME / Whisper 核心模型。" -ForegroundColor Yellow
+    }
+    elseif (-not (Test-Path (Join-Path $ModelDir "muscriptor"))) {
+        Write-Host ""
+        Write-Host "提示：未找到可选模型 MuScriptor（质量档额外乐器）。" -ForegroundColor DarkGray
+        Write-Host "需要时双击 下载MuScriptor模型.bat；不影响快速档和基础分轨。" -ForegroundColor DarkGray
     }
 
     Write-Step "下载核心模型（Demucs / GAME / Whisper small）"

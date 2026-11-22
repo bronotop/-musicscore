@@ -51,9 +51,6 @@ def main() -> int:
 
     models_dir = (args.models_dir or default_models_dir()).expanduser().resolve()
     models_dir.mkdir(parents=True, exist_ok=True)
-    temp_output = models_dir / "_download_tmp"
-    temp_output.mkdir(parents=True, exist_ok=True)
-
     if args.check:
         found = sorted(models_dir.glob("*.th")) + sorted(models_dir.glob("*.yaml"))
         if not found:
@@ -62,6 +59,9 @@ def main() -> int:
         for path in found:
             print(f"  {path.name:32s} {path.stat().st_size:>12,d} bytes")
         return 0
+
+    temp_output = models_dir / "_download_tmp"
+    temp_output.mkdir(parents=True, exist_ok=True)
 
     # Write the tiny model-group configs locally so audio-separator does not
     # have to fetch them from GitHub.

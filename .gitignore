@@ -2,7 +2,9 @@
 # Runtime data: never commit models, audio, generated projects or logs.
 # ---------------------------------------------------------------------------
 runtime/
-models/
+# Anchor to the repository root: an unanchored "models/" would also ignore
+# backend/app/models/, which is source code, not model weights.
+/models/
 data/
 logs/
 cache/
