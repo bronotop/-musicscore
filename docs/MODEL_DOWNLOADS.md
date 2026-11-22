@@ -26,11 +26,11 @@ GitHub Release 提供两个压缩包：
 
 1. 解压程序包，得到 `music2score` 文件夹；
 2. 解压模型包，得到 `models` 文件夹；
-3. 把整个 `models` 文件夹拖到 `music2score\runtime\` 里面；
-4. 双击 `music2score\启动音乐扒谱.bat`。
+3. 把整个 `models` 文件夹拖到 `music2score/runtime/` 里面；
+4. 双击 `music2score/启动音乐扒谱.bat`。
 
-最终路径应为 `music2score\runtime\models\muscriptor\...`。
-检测到 `runtime\models` 后，首次启动不会重复下载权重。
+最终路径应为 `music2score/runtime/models/muscriptor/...`。
+检测到 `runtime/models` 后，首次启动不会重复下载权重。
 
 ## 0.1 权重分发方式（发布者）
 

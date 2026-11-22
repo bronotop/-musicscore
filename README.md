@@ -56,11 +56,11 @@ Windows 10/11 需要下载 **两个压缩包**（在同一个 Release 页面）�
 
 1. 解压程序包，得到 `music2score` 文件夹。
 2. 解压模型包，得到 `models` 文件夹。
-3. 把整个 `models` 文件夹拖到 `music2score\runtime\` 里面。
-   最终路径应为：`music2score\runtime\models\muscriptor\...`
-4. 双击 `music2score\启动音乐扒谱.bat`。
+3. 把整个 `models` 文件夹拖到 `music2score/runtime/` 里面。
+   最终路径应为：`music2score/runtime/models/muscriptor/...`
+4. 双击 `music2score/启动音乐扒谱.bat`。
 
-首次启动只会安装缺失的 Python 依赖（已安装的包会跳过）；检测到 `runtime\models` 后不会重复下载权重。
+首次启动只会安装缺失的 Python 依赖（已安装的包会跳过）；检测到 `runtime/models` 后不会重复下载权重。
 
 - 程序包：[music2score-windows-v0.1.0.zip](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-windows-v0.1.0.zip)
 - 模型包：[music2score-models-v0.1.0.zip](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-models-v0.1.0.zip)
@@ -166,7 +166,7 @@ runtime/
 
 ```powershell
 $env:MUSIC2SCORE_PYTHON = "D:\path\to\.venv\Scripts\python.exe"
-$env:MUSIC2SCORE_HOME = "D:\path\to\music2score-home"
+$env:MUSIC2SCORE_HOME = "D:/path/to/music2score-home"
 ```
 
 然后照常双击启动。也可以直接设置同名环境变量。
