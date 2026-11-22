@@ -15,9 +15,26 @@ $MUSIC2SCORE_HOME/models/
 > 许可证和 NC 声明；不得用于商业产品/服务。详见
 > [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)。
 
-## 0. 权重分发方式（可选）
+## 0. 官方发布包（推荐普通用户）
 
-如果你要把权重随公开仓库提供，按文件大小选择：
+GitHub Release 提供两个压缩包：
+
+1. **程序包**：`music2score-windows-v0.1.0.zip`
+2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.59 GB）
+
+安装：
+
+1. 解压程序包，得到 `music2score` 文件夹；
+2. 解压模型包，得到 `models` 文件夹；
+3. 把整个 `models` 文件夹拖到 `music2score\runtime\` 里面；
+4. 双击 `music2score\启动音乐扒谱.bat`。
+
+最终路径应为 `music2score\runtime\models\muscriptor\...`。
+检测到 `runtime\models` 后，首次启动不会重复下载权重。
+
+## 0.1 权重分发方式（发布者）
+
+如果你要自己把权重随公开仓库提供，按文件大小选择：
 
 | 文件 | 大小 | 方式 |
 |---|---|---|

@@ -45,17 +45,30 @@ music2score 是一个跑在本地的 Web 应用：导入一首歌，自动分离
 > **结果是草稿级，不是出版级。** 量化、拍号/调号、声部划分、鼓谱语义、吉他弦位仍需要人工修正；
 > 这是当前开源转录模型的共同上限。请只处理你有权处理的音乐。
 
-## 一键下载（普通用户，推荐）
+## 下载与安装（普通用户，推荐）
 
-**Windows 10/11：** [下载 `music2score-windows-v0.1.0.zip`（含权重，约 1.59 GB）](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-windows-v0.1.0.zip)
+Windows 10/11 需要下载 **两个压缩包**（在同一个 Release 页面）：
 
-解压后双击 **`启动音乐扒谱.bat`**。模型权重已包含在压缩包的 `runtime/models/` 中；
-首次运行只会自动安装缺失的 Python 依赖（已安装的会跳过），不需要手动下载模型或使用命令行。
+1. **程序包**：`music2score-windows-v0.1.0.zip`
+2. **模型包**：`music2score-models-v0.1.0.zip`（约 1.59 GB，含所有模型权重）
 
-> PDF 导出需要额外安装 MuseScore 4；MusicXML 和 SVG 开箱即用。
+安装步骤：
 
+1. 解压程序包，得到 `music2score` 文件夹。
+2. 解压模型包，得到 `models` 文件夹。
+3. 把整个 `models` 文件夹拖到 `music2score\runtime\` 里面。
+   最终路径应为：`music2score\runtime\models\muscriptor\...`
+4. 双击 `music2score\启动音乐扒谱.bat`。
+
+首次启动只会安装缺失的 Python 依赖（已安装的包会跳过）；检测到 `runtime\models` 后不会重复下载权重。
+
+- 程序包：[music2score-windows-v0.1.0.zip](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-windows-v0.1.0.zip)
+- 模型包：[music2score-models-v0.1.0.zip](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/music2score-models-v0.1.0.zip)
 - Release 页面：[v0.1.0-weights](https://github.com/bronotop/-musicscore/releases/tag/v0.1.0-weights)
-- SHA256 与文件大小见 Release 页的 [manifest.json](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/manifest.json)。
+- 两个包的 SHA256 与大小见 Release 页的 [manifest.json](https://github.com/bronotop/-musicscore/releases/download/v0.1.0-weights/manifest.json)。
+
+> **模型包仅限非商业使用**（MuScriptor CC BY-NC 4.0、ADTOF CC BY-NC-SA 4.0）。
+> PDF 导出需要额外安装 MuseScore 4；MusicXML 和 SVG 开箱即用。
 
 ## 模型与许可（必读）
 
@@ -108,6 +121,8 @@ music2score 是一个跑在本地的 Web 应用：导入一首歌，自动分离
 > 也未做完整验证**；遇到平台相关问题时请按“实验性支持”看待。
 
 ## 快速开始（一键运行）
+
+> 普通用户请使用上面的“下载与安装”两个发布包；下面是从源码运行的方式，适合开发者和想自己改代码的人。
 
 1. 下载或克隆本仓库，解压到任意目录。
 2. 双击 **`启动音乐扒谱.bat`**。

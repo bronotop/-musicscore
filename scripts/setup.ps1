@@ -311,6 +311,15 @@ if (-not $SkipModels) {
         $env:MUSIC2SCORE_HOME = Join-Path $Root "runtime"
     }
 
+    $ModelDir = Join-Path $env:MUSIC2SCORE_HOME "models"
+    $hasBundledModels = (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml")) -or (Test-Path (Join-Path $ModelDir "muscriptor"))
+    if (-not $hasBundledModels) {
+        Write-Host ""
+        Write-Host "提示：没有找到 runtime\models。" -ForegroundColor Yellow
+        Write-Host "如果你下载了模型包，请先把模型包解压出的 models 文件夹拖到 runtime\ 下；" -ForegroundColor Yellow
+        Write-Host "否则安装器会尝试自动下载 Demucs / GAME / Whisper 核心模型。" -ForegroundColor Yellow
+    }
+
     Write-Step "下载核心模型（Demucs / GAME / Whisper small）"
     $downloads = @(
         @{ Label = "GAME 人声模型"; Script = "download_game.py"; Args = @("--size", "medium") },

@@ -129,6 +129,12 @@ $env:PYTHONPATH = Join-Path $Root "backend"
 $env:PYTHONUTF8 = "1"
 $env:PYTHONIOENCODING = "utf-8"
 
+$ModelDir = Join-Path $env:MUSIC2SCORE_HOME "models"
+if (-not (Test-Path (Join-Path $ModelDir "htdemucs_ft.yaml")) -and -not (Test-Path (Join-Path $ModelDir "muscriptor"))) {
+    Write-Info "提示：未找到模型目录 $ModelDir"
+    Write-Info "请把模型包里的 models 文件夹拖到 runtime\ 下，或双击 下载核心模型.bat。"
+}
+
 # ---------------------------------------------------------------- frontend --
 $DistIndex = Join-Path $Root "frontend\dist\index.html"
 if ($Rebuild -or -not (Test-Path $DistIndex)) {
